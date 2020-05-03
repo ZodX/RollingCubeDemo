@@ -17,7 +17,7 @@
 		1. 0: The red side.
 		2. 1..5: The blue sides.
 	* In the matrix representation the player's cube can be found by the number of the current side facing up.
-	* The scores of the players are represented with a map, so there can't be multiple players with the same name. The program overrides the score of the player if he reaches a better score.
+	* The scores of the players are represented with a map, so there can't be multiple players with the same name. The program overrides the score when the player reaches a better score.
 
 ## Getting started
 
