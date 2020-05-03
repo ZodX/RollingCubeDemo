@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     private static Integer[][] map = new Integer[5][5];
-    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y;
+    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y, move_count = 0;
     private static boolean endOfGame = false;
     private static String input; 
     private static Scanner sc = new Scanner(System.in);
@@ -75,6 +75,7 @@ public class Main {
                     map[player_pos_x][player_pos_y] = 6;
                     map[player_pos_x][player_pos_y - 1] = player_cube.player_face;
                     player_pos_y--;
+                    move_count++;
                 } 
             } else 
                 System.out.println("You cant go there.");
@@ -97,6 +98,7 @@ public class Main {
                     map[player_pos_x][player_pos_y] = 6;
                     map[player_pos_x - 1][player_pos_y] = player_cube.player_face;
                     player_pos_x--;
+                    move_count++;
                 } 
             } else 
                 System.out.println("You cant go there.");
@@ -119,6 +121,7 @@ public class Main {
                     map[player_pos_x][player_pos_y] = 6;
                     map[player_pos_x][player_pos_y + 1] = player_cube.player_face;
                     player_pos_y++;
+                    move_count++;
                 } 
             } else 
             System.out.println("You cant go there.");
@@ -141,6 +144,7 @@ public class Main {
                     map[player_pos_x][player_pos_y] = 6;
                     map[player_pos_x + 1][player_pos_y] = player_cube.player_face;
                     player_pos_x++;
+                    move_count++;
                 } 
             } else 
                 System.out.println("You cant go there.");
@@ -175,7 +179,6 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
-            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\ngoal_pos_x: " + goal_pos_x + "\ngoal_pos_y: " + goal_pos_y + "\n");
             
             drawGameState();
             
@@ -195,12 +198,10 @@ public class Main {
 
         drawGameState();
 
-        System.out.println("Congratulations, you have completed the game!");
+        System.out.println("Congratulations, you have completed the game in " + move_count + " steps!");
     }
 
-    public static void main(String[] args) {
-        readMap();
-
+    private static void menuPage() {
         System.out.print("\033[H\033[2J");
         System.out.println("===============================");
         System.out.println("WELCOME TO THE CUBE ROLLER GAME");
@@ -208,7 +209,30 @@ public class Main {
 
         System.out.println("If you want to start the game enter: \"start\".");
         System.out.println("For help enter: \"help\".");
+    }
 
+    private static void helpPage() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("===============================");
+        System.out.println("             HELP              ");
+        System.out.println("===============================\n");
+
+        System.out.println("When the game starts you have to roll the cube the way you dont touch the ground with the red side of the cube (0).\n");
+        System.out.println("The game wants you to enter a direction for each turn (left, right, up, down).\n");
+        
+        while (!input.equals("start")) {
+            System.out.println("If you want to start the game enter: \"start\"");
+            input = sc.next();
+            System.out.println(input);
+        }
+
+        startGame();
+    }
+
+    public static void main(String[] args) {
+        readMap();
+
+        menuPage();
         
         input = sc.next();
 
@@ -217,21 +241,7 @@ public class Main {
                 startGame(); 
                 break; 
             case "help": 
-                System.out.print("\033[H\033[2J");
-                System.out.println("===============================");
-                System.out.println("             HELP              ");
-                System.out.println("===============================\n");
-
-                System.out.println("When the game starts you have to roll the cube the way you dont touch the ground with the red side of the cube (0).\n");
-                System.out.println("The game wants you to enter a direction for each turn (left, right, up, down).\n");
-                
-                while (!input.equals("start")) {
-                    System.out.println("If you want to start the game enter: \"start\"");
-                    input = sc.next();
-                    System.out.println(input);
-                }
-
-                startGame();
+                helpPage();
                 break;
             default: 
                 System.out.println("Invalid command.");
