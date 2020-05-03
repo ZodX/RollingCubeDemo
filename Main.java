@@ -221,7 +221,7 @@ public class Main {
 
         try {
             Scanner pl = new Scanner(new File("playerscores.txt"));
-            
+
             while (pl.hasNext() && pl.hasNextLine() && found == false) {
                 helperString = pl.next();
                 helperInt = pl.nextInt();
@@ -242,7 +242,6 @@ public class Main {
                         System.out.println("Törlendő sor: \"" + lineToRemove + "\"");
                         
                         while((currentLine = reader.readLine()) != null) {
-                            // Trim newline when comparing with lineToRemove
                             if(currentLine.equals(lineToRemove)) {
                                 System.out.println("MEGVAN MIT NEM KELL IRNI: " + currentLine);
                                 continue;
