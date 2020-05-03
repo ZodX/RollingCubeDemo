@@ -8,10 +8,11 @@ import java.util.Scanner;
 public class Main {
 
     private static Integer[][] map = new Integer[5][5];
-    private static int player_pos_x, player_pos_y, player_face = 0, player_leftside = 1;
+    private static int player_pos_x, player_pos_y/* , player_face = 0, player_leftside = 1 */;
     private static boolean endOfGame = false;
     private static String input; 
     private static Scanner sc = new Scanner(System.in);
+    private static PlayerCube player_cube = new PlayerCube();
 
     /**
      * Reads the map from a file called "map.txt".
@@ -55,53 +56,91 @@ public class Main {
 
 
     private static void turnLeft() {
-        if (map[player_pos_x][player_pos_y - 1] == 6) {
-            switch (player_face) {
-                case 0:
+        if (player_pos_y != 0)
+            if (map[player_pos_x][player_pos_y - 1] == 6 || map[player_pos_x - 1][player_pos_y] == 8) {
+                if (player_cube.player_leftside != 0) {
+                    int face;
+                    face = player_cube.player_face;
 
-                    switch (player_leftside) {
-                        case 1:
-                            player_face = 3;
-                            break;
+                    player_cube.player_face = player_cube.player_rightside;
+                    player_cube.player_rightside = player_cube.player_under;
+                    player_cube.player_under = player_cube.player_leftside;
+                    player_cube.player_leftside = face;
 
-                        case 2:
-                            player_face = 4;
-                            break;
-
-                        case 3:
-                            player_face = 1;
-                            break;
-
-                        case 4:
-                            player_face = 2;
-                            break;
-                    }
-
-                    player_leftside = 0;
                     map[player_pos_x][player_pos_y] = 6;
-                    map[player_pos_x][player_pos_y - 1] = player_face;
-                    break;
+                    map[player_pos_x][player_pos_y - 1] = player_cube.player_face;
+                    player_pos_y--;
+                } 
+            } else 
+                System.out.println("You cant go there.");
+        else
+            System.out.println("You cant go there.");
+    }
+   
+    private static void turnUp() {
+        if(player_pos_x != 0)
+            if (map[player_pos_x - 1][player_pos_y] == 6 || map[player_pos_x - 1][player_pos_y] == 8) {
+                if (player_cube.player_upside != 0) {
+                    int face;
+                    face = player_cube.player_face;
 
-                //TODO 
-                case 1:
+                    player_cube.player_face = player_cube.player_downside;
+                    player_cube.player_downside = player_cube.player_under;
+                    player_cube.player_under = player_cube.player_upside;
+                    player_cube.player_upside = face;
 
-                    break;
+                    map[player_pos_x][player_pos_y] = 6;
+                    map[player_pos_x - 1][player_pos_y] = player_cube.player_face;
+                    player_pos_x--;
+                } 
+            } else 
+                System.out.println("You cant go there.");
+        else
+            System.out.println("You cant go there.");
+    }
+        
+    private static void turnRight() {
+        if (player_pos_y != 4)
+            if (map[player_pos_x][player_pos_y + 1] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
+                if (player_cube.player_rightside != 0) {
+                    int face;
+                    face = player_cube.player_face;
+
+                    player_cube.player_face = player_cube.player_leftside;
+                    player_cube.player_leftside = player_cube.player_under;
+                    player_cube.player_under = player_cube.player_rightside;
+                    player_cube.player_rightside = face;
                     
-                case 2:
-
-                    break;
-
-                case 3:
-
-                    break;
-
-                case 4:
-
-                    break;
-            }
-        } else {
+                    map[player_pos_x][player_pos_y] = 6;
+                    map[player_pos_x][player_pos_y + 1] = player_cube.player_face;
+                    player_pos_y++;
+                } 
+            } else 
+            System.out.println("You cant go there.");
+            else
             System.out.println("You cant go there.");
         }
+        
+    private static void turnDown() {
+        if(player_pos_x != 4)
+            if (map[player_pos_x + 1][player_pos_y] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
+                if (player_cube.player_downside != 0) {
+                    int face;
+                    face = player_cube.player_face;
+
+                    player_cube.player_face = player_cube.player_upside;
+                    player_cube.player_upside = player_cube.player_under;
+                    player_cube.player_under = player_cube.player_downside;
+                    player_cube.player_downside = face;
+
+                    map[player_pos_x][player_pos_y] = 6;
+                    map[player_pos_x + 1][player_pos_y] = player_cube.player_face;
+                    player_pos_x++;
+                } 
+            } else 
+                System.out.println("You cant go there.");
+        else
+            System.out.println("You cant go there.");
     }
 
     private static void startGame() {
@@ -111,6 +150,7 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
+            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\n");
             
             drawGameState();
 
@@ -123,13 +163,13 @@ public class Main {
                     turnLeft();
                     break;
                 case "up":
-
+                    turnUp();
                     break;
                 case "right":
-
+                    turnRight();
                     break;
                 case "down":
-
+                    turnDown();
                     break;
                 default:
                     System.out.println("Invalid command.");
