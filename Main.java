@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     private static Integer[][] map = new Integer[5][5];
-    private static int player_pos_x, player_pos_y/* , player_face = 0, player_leftside = 1 */;
+    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y;
     private static boolean endOfGame = false;
     private static String input; 
     private static Scanner sc = new Scanner(System.in);
@@ -31,6 +31,11 @@ public class Main {
                         player_pos_x = i;
                         player_pos_y = j;
                     }
+                    else
+                        if (map[i][j] == 8) {
+                            goal_pos_x = i;
+                            goal_pos_y = j;
+                        }
                 }
             }
 
@@ -143,6 +148,26 @@ public class Main {
             System.out.println("You cant go there.");
     }
 
+    private static void turn(String string) {
+        switch (input) {
+            case "left":
+                turnLeft();
+                break;
+            case "up":
+                turnUp();
+                break;
+            case "right":
+                turnRight();
+                break;
+            case "down":
+                turnDown();
+                break;
+            default:
+                System.out.println("Invalid command.");
+                break;
+        }
+    }
+
     private static void startGame() {
         while (endOfGame == false) {
                 
@@ -150,32 +175,27 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
-            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\n");
+            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\ngoal_pos_x: " + goal_pos_x + "\ngoal_pos_y: " + goal_pos_y + "\n");
             
             drawGameState();
-
+            
             System.out.println("What's your next step?: ");
-            input = sc.next();
+            
+            turn(input = sc.next());
 
-            //   Turn / Roll
-            switch (input) {
-                case "left":
-                    turnLeft();
-                    break;
-                case "up":
-                    turnUp();
-                    break;
-                case "right":
-                    turnRight();
-                    break;
-                case "down":
-                    turnDown();
-                    break;
-                default:
-                    System.out.println("Invalid command.");
-                    break;
-            }
+            if (player_pos_x == goal_pos_x && player_pos_y == goal_pos_y) 
+                endOfGame = true;
         }  
+
+        System.out.print("\033[H\033[2J");
+        System.out.println("===============================");
+        System.out.println("       ROLLING CUBE GAME       ");
+        System.out.println("===============================\n");
+        System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\ngoal_pos_x: " + goal_pos_x + "\ngoal_pos_y: " + goal_pos_y + "\n");
+
+        drawGameState();
+
+        System.out.println("Congratulations, you have completed the game!");
     }
 
     public static void main(String[] args) {
