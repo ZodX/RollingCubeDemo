@@ -317,9 +317,20 @@ public class Main {
         }
         
         while (!input.equals("menu")) {
+            System.out.println("If you want to clear the scoreboard enter: \"clear\"");
             System.out.println("If you want to go back to the menu the game enter: \"menu\"\n");
             System.out.print("Enter: ");
             input = sc.next();
+
+            if (input.equals("clear")) {
+                try {
+                    PrintWriter writer = new PrintWriter("playerscores.txt");
+                    writer.print("");
+                    writer.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Couldn't clear playerscores.txt\nException: FileNotFoundException");
+                }
+            }
         }
 
         menuPage();
