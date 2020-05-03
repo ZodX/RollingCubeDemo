@@ -16,8 +16,8 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static Integer[][] map = new Integer[5][5];
-    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y, move_count = 0, helperInt;
+    private static Integer[][] map;
+    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y, move_count = 0, helperInt, n, m;
     private static boolean endOfGame = false, found = false;
     private static String input, nick, helperString, lineToRemove, currentLine;
     private static Scanner sc = new Scanner(System.in);
@@ -36,9 +36,12 @@ public class Main {
     private static void readMap() {
         try {
             Scanner sc = new Scanner(new File("map.txt"));
+            n = sc.nextInt();
+            m = sc.nextInt();
+            map = new Integer[m][n];
 
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
                     map[i][j] = sc.nextInt();
 
                     if (map[i][j] == 0) {
@@ -63,8 +66,8 @@ public class Main {
      * @param map is the array.
      */
     private static void drawGameState() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
@@ -119,7 +122,7 @@ public class Main {
     }
 
     private static void turnRight() {
-        if (player_pos_y != 4)
+        if (player_pos_y != n - 1)
             if (map[player_pos_x][player_pos_y + 1] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
                 if (player_cube.player_rightside != 0) {
                     int face;
@@ -142,7 +145,7 @@ public class Main {
     }
 
     private static void turnDown() {
-        if (player_pos_x != 4)
+        if (player_pos_x != m - 1)
             if (map[player_pos_x + 1][player_pos_y] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
                 if (player_cube.player_downside != 0) {
                     int face;
