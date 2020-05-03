@@ -1,6 +1,6 @@
 # Rolling Cube Demo
 
-	This is a representation of a logical game what I have to implement for a project in my Softvare Engeneering class.
+	This is a representation of a logical game which I have to implement for a project in my Softvare Engeneering class.
 
 ## Game rules:
 	You are playing with a cube which has 1 red side and 5 blue sides.
