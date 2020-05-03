@@ -9,7 +9,7 @@
 	The player's cube spawns with the red side facing up.	
 	
 ## Game represetation
-	* The program reads the map from a txt (nxm).
+	* The program reads the map from a txt (n x m).
 	* Open fields are represented with 6.
 	* Blocked fields are represented with 7.
 	* Goal field('s) is(/are) represented with 8.
