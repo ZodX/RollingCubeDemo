@@ -228,9 +228,6 @@ public class Main {
             while (pl.hasNext() && pl.hasNextLine() && found == false) {
                 helperString = pl.next();
                 helperInt = pl.nextInt();
-                
-                System.out.println("Elso");
-                System.out.println(helperString + " " + helperInt);
 
                 if (helperString.equals(nick)) {
                     System.out.println("Azonos nick");
@@ -259,6 +256,19 @@ public class Main {
                         found = true;
                     }
                 }
+            }
+
+            if (found == false) {
+                reader = new BufferedReader(new FileReader(inputFile));
+                writer = new BufferedWriter(new FileWriter(tempFile));
+
+                while((currentLine = reader.readLine()) != null) {
+                    writer.write(currentLine + System.getProperty("line.separator"));
+                }
+                writer.write(nick + " " + move_count + System.getProperty("line.separator"));
+                writer.close(); 
+                reader.close();
+                tempFile.renameTo(inputFile);
             }
             pl.close();
         } catch (UnsupportedEncodingException e) {
