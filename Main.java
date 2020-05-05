@@ -197,7 +197,6 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
-            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\n");
             drawGameState();
             
             System.out.println("What's your next step?: \n");
@@ -302,6 +301,17 @@ public class Main {
         System.out.print("Enter: ");
         nick = sc.next();
 
+        while (nick.equals("start") || nick.equals("help") || nick.equals("scoreboard")) {
+            System.out.print("\033[H\033[2J");
+            System.out.println("===============================");
+            System.out.println("WELCOME TO THE CUBE ROLLER GAME");
+            System.out.println("===============================\n");
+
+            System.out.println("Enter your nickname: \n");
+            System.out.print("Enter: ");
+            nick = sc.next();
+        }
+
         menuPage();
     }
 
@@ -318,6 +328,20 @@ public class Main {
         System.out.print("Enter: ");
         input = sc.next();
 
+        while (!input.equals("start") && !input.equals("help") && !input.equals("scoreboard")){
+            System.out.print("\033[H\033[2J");
+            System.out.println("===============================");
+            System.out.println("WELCOME TO THE CUBE ROLLER GAME");
+            System.out.println("===============================\n");
+    
+            System.out.println("If you want to start the game enter: \"start\".");
+            System.out.println("For help enter: \"help\".");
+            System.out.println("If you want to see the scoreboard enter: \"scoreboard\"\n");
+    
+            System.out.print("Enter: ");
+            input = sc.next();
+        }
+
         switch (input) {
             case "start": 
                 startGame(); 
@@ -327,9 +351,6 @@ public class Main {
                 break;
             case "scoreboard":
                 scoreBoardPage();
-                break;
-            default: 
-                System.out.println("Invalid command.");
                 break;
         }
     }
