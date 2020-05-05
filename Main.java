@@ -213,9 +213,6 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
-            System.out.println("n: " + n + " m: " + m);
-            System.out.println("goal_pos_x: " + goal_pos_x + " goal_pos_y: " + goal_pos_y);
-            System.out.println("player_pos_x: " + player_pos_x + " player_pos_y: " + player_pos_y);
             drawGameState();
             
             System.out.println("What's your next step?: \n");
