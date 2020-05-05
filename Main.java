@@ -17,15 +17,15 @@ import java.util.Scanner;
 public class Main {
 
     private static Integer[][] map;
-    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y, move_count = 0, helperInt, n, m;
-    private static boolean endOfGame = false, found = false;
+    private static int player_pos_x, player_pos_y, goal_pos_x, goal_pos_y, move_count, helperInt, n, m;
+    private static boolean endOfGame, found;
     private static String input, nick, helperString, lineToRemove, currentLine;
-    private static Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in), pl;
     private static File inputFile = new File("playerscores.txt");
     private static File tempFile = new File("myTempFile.txt");
     private static BufferedReader reader;
     private static BufferedWriter writer;
-    private static PlayerCube player_cube = new PlayerCube();
+    private static PlayerCube player_cube;
     private static Map<String, Integer> scores = new HashMap<String, Integer>();
 
     /**
@@ -167,8 +167,8 @@ public class Main {
             System.out.println("You cant go there.");
     }
 
-    private static void turn(String string) {
-        switch (input) {
+    private static void turn(String i) {
+        switch (i) {
             case "left":
                 turnLeft();
                 break;
@@ -188,13 +188,16 @@ public class Main {
     }
 
     private static void startGame() {
-        while (endOfGame == false) {
-                
+        readMap();
+        player_cube = new PlayerCube();
+        move_count = 0;
+        found = false;
+        while (endOfGame == false) { 
             System.out.print("\033[H\033[2J");
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
-            
+            System.out.println("player_pos_x: " + player_pos_x + "\nplayer_pos_y: " + player_pos_y + "\n");
             drawGameState();
             
             System.out.println("What's your next step?: \n");
@@ -223,7 +226,7 @@ public class Main {
         }
 
         try {
-            Scanner pl = new Scanner(new File("playerscores.txt"));
+            pl = new Scanner(new File("playerscores.txt"));
 
             while (pl.hasNext() && pl.hasNextLine() && found == false) {
                 helperString = pl.next();
@@ -231,15 +234,14 @@ public class Main {
 
                 if (helperString.equals(nick)) {
                     System.out.println("Azonos nick");
-                    if (helperInt > move_count) {
-                        System.out.println("Jobb eredmeny");
-                        
+                    sc.next();
+                    if (helperInt > move_count) {     
+                        System.out.println("jobb eredmeny");
+                        sc.next();                  
                         reader = new BufferedReader(new FileReader(inputFile));
                         writer = new BufferedWriter(new FileWriter(tempFile));
                         
                         lineToRemove = helperString + " " + helperInt;
-                        
-                        System.out.println("Törlendő sor: \"" + lineToRemove + "\"");
                         
                         while((currentLine = reader.readLine()) != null) {
                             if(currentLine.equals(lineToRemove)) {
@@ -254,7 +256,9 @@ public class Main {
                         tempFile.renameTo(inputFile);
                         
                         found = true;
-                    }
+                    } else  
+                        if (helperInt == move_count)
+                            found = true;
                 }
             }
 
@@ -271,6 +275,8 @@ public class Main {
                 tempFile.renameTo(inputFile);
             }
             pl.close();
+
+            endOfGame = false;
         } catch (UnsupportedEncodingException e) {
             System.out.println("Exception: UnsupportedEncodingException");
         } catch (FileNotFoundException e) {
@@ -279,9 +285,9 @@ public class Main {
             System.out.println("Exception: IOException\nCouldn't rewrite playerscores.txt.");
         }
 
-        if(input.equals("menu"))
+        if(input.equals("menu")) 
             menuPage();
-        else 
+        else
             scoreBoardPage();
 
     }
@@ -395,10 +401,7 @@ public class Main {
     }
 
     public static void main(String[] args) {             
-        readMap();
-        
         starterPage();
-             
         sc.close();
     }
 }
