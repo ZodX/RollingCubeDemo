@@ -76,8 +76,8 @@ public class Main {
     }
 
     private static void turnLeft() {
-        if (player_pos_y != 0)
-            if (map[player_pos_x][player_pos_y - 1] == 6 || map[player_pos_x - 1][player_pos_y] == 8) {
+        if (player_pos_y != 0) {
+            if (map[player_pos_x][player_pos_y - 1] == 6 || map[player_pos_x][player_pos_y - 1] == 8) {
                 if (player_cube.player_leftside != 0) {
                     int face;
                     face = player_cube.player_face;
@@ -92,14 +92,18 @@ public class Main {
                     player_pos_y--;
                     move_count++;
                 }
-            } else
-                System.out.println("You cant go there.");
-        else
-            System.out.println("You cant go there.");
+            } else {
+                System.out.println("You cant go there. (Enter: something to continue.");
+                sc.next();
+            }  
+        } else {
+            System.out.println("You cant go there. (Enter: something to continue.");
+            sc.next();
+        }
     }
 
     private static void turnUp() {
-        if (player_pos_x != 0)
+        if (player_pos_x != 0) {
             if (map[player_pos_x - 1][player_pos_y] == 6 || map[player_pos_x - 1][player_pos_y] == 8) {
                 if (player_cube.player_upside != 0) {
                     int face;
@@ -115,15 +119,19 @@ public class Main {
                     player_pos_x--;
                     move_count++;
                 }
-            } else
-                System.out.println("You cant go there.");
-        else
-            System.out.println("You cant go there.");
+            } else {
+                System.out.println("You cant go there. (Enter: something to continue.");
+                sc.next();
+            }  
+        } else {
+            System.out.println("You cant go there. (Enter: something to continue.");
+            sc.next();
+        }
     }
 
     private static void turnRight() {
-        if (player_pos_y != n - 1)
-            if (map[player_pos_x][player_pos_y + 1] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
+        if (player_pos_y != n - 1) {
+            if (map[player_pos_x][player_pos_y + 1] == 6 || map[player_pos_x][player_pos_y + 1] == 8) {
                 if (player_cube.player_rightside != 0) {
                     int face;
                     face = player_cube.player_face;
@@ -138,14 +146,18 @@ public class Main {
                     player_pos_y++;
                     move_count++;
                 }
-            } else
-                System.out.println("You cant go there.");
-        else
-            System.out.println("You cant go there.");
+            } else {
+                System.out.println("You cant go there. (Enter: something to continue.");
+                sc.next();
+            }  
+        } else {
+            System.out.println("You cant go there. (Enter: something to continue.");
+            sc.next();
+        }
     }
 
     private static void turnDown() {
-        if (player_pos_x != m - 1)
+        if (player_pos_x != m - 1) {
             if (map[player_pos_x + 1][player_pos_y] == 6 || map[player_pos_x + 1][player_pos_y] == 8) {
                 if (player_cube.player_downside != 0) {
                     int face;
@@ -161,10 +173,14 @@ public class Main {
                     player_pos_x++;
                     move_count++;
                 }
-            } else
-                System.out.println("You cant go there.");
-        else
-            System.out.println("You cant go there.");
+            } else {
+                System.out.println("You cant go there. (Enter: something to continue.");
+                sc.next();
+            }  
+        } else {
+            System.out.println("You cant go there. (Enter: something to continue.");
+            sc.next();
+        }
     }
 
     private static void turn(String i) {
@@ -197,6 +213,9 @@ public class Main {
             System.out.println("===============================");
             System.out.println("       ROLLING CUBE GAME       ");
             System.out.println("===============================\n");
+            System.out.println("n: " + n + " m: " + m);
+            System.out.println("goal_pos_x: " + goal_pos_x + " goal_pos_y: " + goal_pos_y);
+            System.out.println("player_pos_x: " + player_pos_x + " player_pos_y: " + player_pos_y);
             drawGameState();
             
             System.out.println("What's your next step?: \n");
