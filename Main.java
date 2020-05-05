@@ -248,11 +248,7 @@ public class Main {
                 helperInt = pl.nextInt();
 
                 if (helperString.equals(nick)) {
-                    System.out.println("Azonos nick");
-                    sc.next();
-                    if (helperInt > move_count) {     
-                        System.out.println("jobb eredmeny");
-                        sc.next();                  
+                    if (helperInt > move_count) {                       
                         reader = new BufferedReader(new FileReader(inputFile));
                         writer = new BufferedWriter(new FileWriter(tempFile));
                         
