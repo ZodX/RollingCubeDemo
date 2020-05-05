@@ -1,4 +1,4 @@
-ZodX 5
-Zoli 9
-cant0r 11
-bombifighter 7
+ZodX 16
+cant0r 20
+bombifighter 18
+agignore 18
